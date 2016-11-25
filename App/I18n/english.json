@@ -22,5 +22,6 @@
    "themeSettings": "Theme Settings",
    "deviceDetails": "Device Details",
    "noItems": "No Items",
-   "eventname": "Event Name"
+   "eventname": "Event Name",
+   "eventdate": "Event Date"
 }

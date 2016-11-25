@@ -10,6 +10,7 @@ import { Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Animatable from 'react-native-animatable'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import DatePicker from 'react-native-datepicker'
 
 // Styles
 import Styles from './Styles/CountdownFormStyle'
@@ -65,23 +66,32 @@ class CountdownForm extends React.Component {
                 onSubmitEditing={() => this.refs.password.focus()}
                 placeholder={I18n.t('eventname')} />
             </View>
-
             <View style={Styles.row}>
               <Text style={Styles.rowLabel}>{I18n.t('eventdate')}</Text>
-              <TextInput
-                ref='password'
-                style={textInputStyle}
-                value={password}
-                editable={editable}
-                keyboardType='default'
-                returnKeyType='go'
-                autoCapitalize='none'
-                autoCorrect={false}
-                secureTextEntry
-                onChangeText={this.handleChangePassword}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.handlePressLogin}
-                placeholder={I18n.t('password')} />
+              <DatePicker
+                style={{ width: 200 }}
+                date={this.state.date}
+                mode="date"
+                placeholder={I18n.t('eventdate')}
+                format="YYYY-MM-DD"
+                minDate="2016-05-01"
+                maxDate="9999-12-31"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                  // ... You can check the source to find the other keys.
+                }}
+                onDateChange={(date) => { this.setState({ date: date }) } }
+                />
             </View>
 
             <View style={Styles.row}>
