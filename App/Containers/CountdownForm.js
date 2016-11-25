@@ -1,29 +1,120 @@
 // @flow
 
 import React from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, View, Text, TextInput, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-import { Metrics } from '../Themes'
+import { Images, Metrics } from '../Themes'
 // external libs
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Animatable from 'react-native-animatable'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // Styles
-import styles from './Styles/CountdownFormStyle'
+import Styles from './Styles/CountdownFormStyle'
 
 // I18n
 import I18n from 'react-native-i18n'
 
 class CountdownForm extends React.Component {
 
-  render () {
+  handleChangeEventname = (text) => {
+    this.setState({ eventname: text })
+  }
+
+  handleChangePassword = (text) => {
+    this.setState({ password: text })
+  }
+
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      eventname: 'reactnative@infinite.red',
+      password: 'password',
+      visibleHeight: Metrics.screenHeight,
+      topLogo: { width: Metrics.screenWidth }
+    }
+    this.isAttempting = false
+  }
+
+  render() {
+    const { eventname, password } = this.state
+    const { fetching } = this.props;
+    const editable = !fetching;
+    const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly;
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={Styles.container}>
         <KeyboardAvoidingView behavior='position'>
-          <Text>CountdownForm Container</Text>
+          <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
+          <View style={Styles.form}>
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('eventname')}</Text>
+              <TextInput
+                ref='eventname'
+                style={textInputStyle}
+                value={eventname}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={this.handleChangeEventname}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={() => this.refs.password.focus()}
+                placeholder={I18n.t('eventname')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('eventdate')}</Text>
+              <TextInput
+                ref='password'
+                style={textInputStyle}
+                value={password}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='go'
+                autoCapitalize='none'
+                autoCorrect={false}
+                secureTextEntry
+                onChangeText={this.handleChangePassword}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressLogin}
+                placeholder={I18n.t('password')} />
+            </View>
+
+            <View style={Styles.row}>
+              <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
+              <TextInput
+                ref='password'
+                style={textInputStyle}
+                value={password}
+                editable={editable}
+                keyboardType='default'
+                returnKeyType='go'
+                autoCapitalize='none'
+                autoCorrect={false}
+                secureTextEntry
+                onChangeText={this.handleChangePassword}
+                underlineColorAndroid='transparent'
+                onSubmitEditing={this.handlePressLogin}
+                placeholder={I18n.t('password')} />
+            </View>
+
+            <View style={[Styles.loginRow]}>
+              <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
+                <View style={Styles.loginButton}>
+                  <Text style={Styles.loginText}>{I18n.t('signIn')}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
+                <View style={Styles.loginButton}>
+                  <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
         </KeyboardAvoidingView>
       </ScrollView>
     )
