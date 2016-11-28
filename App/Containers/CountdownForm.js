@@ -32,8 +32,8 @@ class CountdownForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      eventname: 'reactnative@infinite.red',
-      password: 'password',
+      eventname: '',
+      password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -58,12 +58,12 @@ class CountdownForm extends React.Component {
                 value={eventname}
                 editable={editable}
                 keyboardType='default'
-                returnKeyType='next'
+                //returnKeyType='next'
                 autoCapitalize='none'
                 autoCorrect={false}
                 onChangeText={this.handleChangeEventname}
                 underlineColorAndroid='transparent'
-                onSubmitEditing={() => this.refs.password.focus()}
+                // onSubmitEditing={() => this.refs.password.focus()}
                 placeholder={I18n.t('eventname')} />
             </View>
             <View style={Styles.row}>
@@ -94,7 +94,7 @@ class CountdownForm extends React.Component {
                 />
             </View>
 
-            <View style={Styles.row}>
+          {/*  <View style={Styles.row}>
               <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
               <TextInput
                 ref='password'
@@ -110,7 +110,7 @@ class CountdownForm extends React.Component {
                 underlineColorAndroid='transparent'
                 onSubmitEditing={this.handlePressLogin}
                 placeholder={I18n.t('password')} />
-            </View>
+            </View>*/}
 
             <View style={[Styles.loginRow]}>
               <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
