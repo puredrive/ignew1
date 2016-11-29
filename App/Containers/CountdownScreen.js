@@ -15,9 +15,10 @@ class CountdownScreen extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { events:{}  };
+    this.state = { event:'',
+    events:[]  };
     AsyncStorage.getItem('events').then((events) => {
-      this.setState(JSON.parse(events));
+      this.setState({events: JSON.parse(events)});
       console.log('get data');
       console.log(this.state);
       console.log('print events');
@@ -26,11 +27,14 @@ class CountdownScreen extends React.Component {
   }
 
   saveData(someValue){
-    this.setState({events})
+    var items = this.state.events;
+    items.push(someValue);
+    this.setState({event:someValue});
     //how to append to a list of objects
     AsyncStorage.setItem('events',JSON.stringify(this.state.events));
    console.log('save data');
    console.log(this.state.events);
+   console.log(this.state);
    // this.setState({'events':someValue});
   }
 
@@ -38,11 +42,11 @@ class CountdownScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Text>CountdownScreen Container
-        myValue = {this.state.events}
+       
         </Text>
         <TextInput style={styles.TextInput}
         onChangeText={(text)=>this.saveData(text)}
-        value={this.state.events}/>
+        value={this.state.event}/>
       </ScrollView>
     )
   }

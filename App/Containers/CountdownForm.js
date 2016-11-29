@@ -29,6 +29,15 @@ class CountdownForm extends React.Component {
     this.setState({ password: text })
   }
 
+  handlePressLogin = () => {
+    const {eventname, date} = this.state;
+    console.log('in handlepresslogin');
+    console.log(eventname);
+    console.log(date);
+    var newEventObj = {eventname, date};
+    console.log(newEventObj);
+//use action to send data to be updated into list and update asyncstorage
+  }
 
   constructor(props) {
     super(props)
@@ -95,7 +104,7 @@ class CountdownForm extends React.Component {
                 />
             </View>
 
-          {/*  <View style={Styles.row}>
+            {/*  <View style={Styles.row}>
               <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
               <TextInput
                 ref='password'
