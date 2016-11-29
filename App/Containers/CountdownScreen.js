@@ -26,6 +26,7 @@ class CountdownScreen extends React.Component {
   }
 
   saveData(someValue){
+    this.setState({events})
     //how to append to a list of objects
     AsyncStorage.setItem('events',JSON.stringify(this.state.events));
    console.log('save data');
