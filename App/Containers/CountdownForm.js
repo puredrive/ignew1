@@ -147,15 +147,18 @@ class CountdownForm extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log('== IMPORTANT ==');
-  console.log(state.events);
+  console.log(state.countdown);
   return {
-    updatedEventList: state.events
+    events: state.countdown.events
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptAddEvent: (eventname, eventdate) => dispatch(CountdownActions.addEvent(eventname, eventdate))
+    attemptAddEvent: (eventname, eventdate) => {
+     console.log('dispatching addEvent!');
+      dispatch(CountdownActions.addEvent(eventname, eventdate))
+    }
   }
 }
 

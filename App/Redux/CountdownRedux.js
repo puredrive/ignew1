@@ -14,15 +14,22 @@ export default Creators
 
 /* ------------- Initial State ------------- */
 
-export const INITIAL_STATE = Immutable({
+export const INITIAL_STATE = {
   events: []
-})
+}
 
 /* ------------- Reducers ------------- */
 
 
-export const addEvent = (state = INITIAL_STATE, event: Object) => {
-    return {...state, list: [...this.state.events, ...event]}
+export const addEvent = (state = INITIAL_STATE, event) => {
+  console.log('inside AddEvent reducer');
+  console.log(state);
+  console.log('inside AddEvent reducer, logging event');
+  console.log(event);
+  const {eventname, eventdate} = event;
+  var toAdd = { eventname, eventdate };
+  console.log(toAdd);
+  return {...state, events: [...state.events, toAdd] }
 }
 
 
