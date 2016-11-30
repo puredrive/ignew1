@@ -4,7 +4,7 @@ import React from 'react'
 import { ScrollView, View, Text, TextInput, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import CountdownActions from '../Redux/CountdownRedux'
 import { Images, Metrics } from '../Themes'
 // external libs
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -30,19 +30,22 @@ class CountdownForm extends React.Component {
   }
 
   handlePressLogin = () => {
-    const {eventname, date} = this.state;
+    const {eventname, eventdate} = this.state;
     console.log('in handlepresslogin');
     console.log(eventname);
-    console.log(date);
-    var newEventObj = {eventname, date};
+    console.log(eventdate);
+    var newEventObj = {eventname, eventdate};
     console.log(newEventObj);
 //use action to send data to be updated into list and update asyncstorage
+  this.props.attemptAddEvent(eventname, eventdate);
+
   }
 
   constructor(props) {
     super(props)
     this.state = {
       eventname: '',
+      events:[],
       password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
@@ -80,7 +83,7 @@ class CountdownForm extends React.Component {
               <Text style={Styles.rowLabel}>{I18n.t('eventdate')}</Text>
               <DatePicker
                 style={{ width: 200 }}
-                date={this.state.date}
+                date={this.state.eventdate}
                 mode="date"
                 placeholder={I18n.t('eventdate')}
                 format="YYYY-MM-DD"
@@ -100,7 +103,7 @@ class CountdownForm extends React.Component {
                   }
                   // ... You can check the source to find the other keys.
                 }}
-                onDateChange={(date) => { this.setState({ date: date }) } }
+                onDateChange={(eventdate) => { this.setState({ eventdate }) } }
                 />
             </View>
 
@@ -143,12 +146,16 @@ class CountdownForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('== IMPORTANT ==');
+  console.log(state.events);
   return {
+    updatedEventList: state.events
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    attemptAddEvent: (eventname, eventdate) => dispatch(CountdownActions.addEvent(eventname, eventdate))
   }
 }
 
