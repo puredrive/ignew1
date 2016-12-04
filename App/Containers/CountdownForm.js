@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Animatable from 'react-native-animatable'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import DatePicker from 'react-native-datepicker'
+import moment from 'moment';
 
 
 // Styles
@@ -34,7 +35,7 @@ class CountdownForm extends React.Component {
     console.log('in handlepresslogin');
     console.log(eventname);
     console.log(eventdate);
-    var newEventObj = {eventname, eventdate};
+    var newEventObj = {eventname, eventdate: moment(eventdate)};
     console.log(newEventObj);
 //use action to send data to be updated into list and update asyncstorage
   this.props.attemptAddEvent(eventname, eventdate);

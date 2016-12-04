@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import { AsyncStorage } from 'react-native'
 import AlertMessage from '../Components/AlertMessage'
+import moment from 'moment';
 
 // Styles
 import styles from './Styles/CountdownScreenStyle'
@@ -37,11 +38,14 @@ class CountdownScreen extends React.Component {
     // });
   }
   _renderRow(rowData) {
+    var a = moment();
+
     return (
       <View style={styles.row}>
         <Text style={styles.boldLabel}>{rowData.eventname}</Text>
         <Text style={styles.label}>{rowData.eventdate}</Text>
-      </View>
+        <Text style={styles.label}>{a.to(rowData.eventdate)}</Text>
+      </View>  
     )
   }
   saveData(someValue) {
