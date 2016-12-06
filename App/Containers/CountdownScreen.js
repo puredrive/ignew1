@@ -9,7 +9,8 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 import { AsyncStorage } from 'react-native'
 import AlertMessage from '../Components/AlertMessage'
 import moment from 'moment';
-import { Button, Icon, Text, ListView, Tile, Title, Subtitle } from '@shoutem/ui';
+import { Button, Icon, Text, ListView, Tile, Title, Subtitle, Row } from '@shoutem/ui';
+import _ from 'lodash';
 
 // Styles
 import styles from './Styles/CountdownScreenStyle'
@@ -23,10 +24,10 @@ class CountdownScreen extends React.Component {
     // const ds = new ListView.DataSource({ rowHasChanged })
 
     // Datasource is always in state
-     this.state = {
-       //dataSource: ds.cloneWithRows(this.props.events)
-       events: this.props.events
-     }
+    this.state = {
+      //dataSource: ds.cloneWithRows(this.props.events)
+      events: this.props.events
+    }
     console.log('loggin props.event');
     console.log(this.props.events);
     // this.state = { event:'',
@@ -39,6 +40,9 @@ class CountdownScreen extends React.Component {
     //   console.log(this.state.events);
     // });
   }
+
+
+
   _renderRow(rowData) {
     var a = moment();
 
@@ -51,14 +55,22 @@ class CountdownScreen extends React.Component {
     )
   }
 
-  renderRowShoutEm(rowData){
+  renderRowShoutEm(rowData) {
     var a = moment();
     return (
-          <Tile>
-            <Title styleName="md-gutter-bottom">{rowData.eventname}</Title>
-            <Subtitle styleName="sm-gutter-horizontal">{rowData.eventdate}</Subtitle>
-            <Subtitle styleName="sm-gutter-horizontal">{a.to(rowData.eventdate)}</Subtitle>
-          </Tile>      
+      <Tile>
+        <Title styleName="lg-gutter">{rowData.eventname}</Title>
+        <Row>
+        <Subtitle styleName="sm-gutter-horizontal">{rowData.eventdate}</Subtitle>
+        <Subtitle styleName="sm-gutter-horizontal">{a.to(rowData.eventdate)}</Subtitle>
+        </Row>
+      </Tile>
+    )
+  }
+
+  renderHeader() {
+    return (
+      <Title styleName="lg-gutter">I am a header</Title>
     )
   }
   saveData(someValue) {
@@ -85,6 +97,7 @@ class CountdownScreen extends React.Component {
     }
   }
   render() {
+    
     return (
       <ScrollView style={styles.container}>
         {/*<AlertMessage title='Nothing to See Here, Move Along' show={this._noRowData()} />
@@ -95,10 +108,12 @@ class CountdownScreen extends React.Component {
           pageSize={15}
           />*/}
         <ListView
+          autoHideHeader={true}
           data={this.state.events}
           renderRow={this.renderRowShoutEm}
-
+          renderHeader={this.renderHeader}
           />
+
         <Button styleName="dark">
           <Icon name="add-event" />
           <Text>CHECK IN HERE</Text>
