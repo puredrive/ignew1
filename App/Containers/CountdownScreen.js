@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { ScrollView, TextInput, View } from 'react-native'
+import { ScrollView, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -9,7 +9,7 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 import { AsyncStorage } from 'react-native'
 import AlertMessage from '../Components/AlertMessage'
 import moment from 'moment';
-import { Button, Icon, Text, ListView, Tile, Title, Subtitle, Row } from '@shoutem/ui';
+import { Button, Icon, Text, ListView, Tile, Title, Subtitle, Row, Image, View,Caption } from '@shoutem/ui';
 import _ from 'lodash';
 
 // Styles
@@ -58,13 +58,24 @@ class CountdownScreen extends React.Component {
   renderRowShoutEm(rowData) {
     var a = moment();
     return (
-      <Tile>
-        <Title styleName="lg-gutter">{rowData.eventname}</Title>
-        <Row>
-        <Subtitle styleName="sm-gutter-horizontal">{rowData.eventdate}</Subtitle>
-        <Subtitle styleName="sm-gutter-horizontal">{a.to(rowData.eventdate)}</Subtitle>
-        </Row>
-      </Tile>
+
+      <Row >
+        <View styleName="vertical">
+          {/*          <Image
+            styleName="small-avatar stretch"
+            source={{ uri: 'http://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
+            />*/}
+          <Title styleName="flexible">{rowData.eventname}</Title>
+          <Caption>{rowData.eventdate}</Caption>
+
+        </View>
+
+        <View styleName="horizontal h-center" style={{ flexDirection: 'row' }} >
+          <Title >{a.to(rowData.eventdate)}</Title>
+        </View>
+        <Icon styleName="disclosure" name="right-arrow" />
+      </Row>
+
     )
   }
 
@@ -97,7 +108,7 @@ class CountdownScreen extends React.Component {
     }
   }
   render() {
-    
+
     return (
       <ScrollView style={styles.container}>
         {/*<AlertMessage title='Nothing to See Here, Move Along' show={this._noRowData()} />
@@ -111,7 +122,7 @@ class CountdownScreen extends React.Component {
           autoHideHeader={true}
           data={this.state.events}
           renderRow={this.renderRowShoutEm}
-          renderHeader={this.renderHeader}
+          // renderHeader={this.renderHeader}
           />
 
         <Button styleName="dark">

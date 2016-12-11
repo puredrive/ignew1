@@ -48,10 +48,16 @@ class DrawerContent extends Component {
     NavigationActions.deviceInfo()
   }
 
+  handleShoutemExamples = () => {
+    this.toggleDrawer()
+    NavigationActions.ShoutemExamples()
+  }
+
   render () {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
+        <DrawerButton text='Shoutem UI Examples' onPress={this.handleShoutemExamples} />        
         <DrawerButton text='Component Examples' onPress={this.handlePressComponents} />
         <DrawerButton text='Usage Examples' onPress={this.handlePressUsage} />
         <DrawerButton text='API Testing' onPress={this.handlePressAPI} />
