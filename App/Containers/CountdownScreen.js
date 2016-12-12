@@ -9,7 +9,7 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 import { AsyncStorage } from 'react-native'
 import AlertMessage from '../Components/AlertMessage'
 import moment from 'moment';
-import { Button, Icon, Text, ListView, Tile, Title, Subtitle, Row, Image, View,Caption } from '@shoutem/ui';
+import { Button, Icon, Text, ListView, Tile, Title, Subtitle, Row, Image, View, Caption, TouchableOpacity } from '@shoutem/ui';
 import _ from 'lodash';
 
 // Styles
@@ -55,26 +55,36 @@ class CountdownScreen extends React.Component {
     )
   }
 
+
+  onRowPress() {
+    //Actions.employeeEdit({ employee: this.props.employee });
+    console.log('Pressed!');
+    
+  }
   renderRowShoutEm(rowData) {
     var a = moment();
     return (
-
-      <Row >
-        <View styleName="vertical">
-          {/*          <Image
+      <TouchableOpacity onPress={()=> {
+        console.log('hello1');
+        this.onRowPress.bind(this);
+      }}>
+        <Row >
+          <View styleName="vertical">
+            {/*          <Image
             styleName="small-avatar stretch"
             source={{ uri: 'http://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
             />*/}
-          <Title styleName="flexible">{rowData.eventname}</Title>
-          <Caption>{rowData.eventdate}</Caption>
+            <Title styleName="flexible">{rowData.eventname}</Title>
+            <Caption>{rowData.eventdate}</Caption>
 
-        </View>
+          </View>
 
-        <View styleName="horizontal h-center" style={{ flexDirection: 'row' }} >
-          <Title >{a.to(rowData.eventdate)}</Title>
-        </View>
-        <Icon styleName="disclosure" name="right-arrow" />
-      </Row>
+          <View styleName="horizontal h-center" style={{ flexDirection: 'row' }} >
+            <Title >{a.to(rowData.eventdate)}</Title>
+          </View>
+          <Icon styleName="disclosure" name="right-arrow" />
+        </Row>
+      </TouchableOpacity>
 
     )
   }
