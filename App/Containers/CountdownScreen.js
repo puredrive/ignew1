@@ -67,7 +67,7 @@ class CountdownScreen extends React.Component {
       <TouchableOpacity onPress={()=> {
         console.log('hello1');
         this.onRowPress.bind(this);
-      }}>
+      }}> 
         <Row >
           <View styleName="vertical">
             {/*          <Image
