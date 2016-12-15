@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { ScrollView, TextInput, ListView,TouchableHighlight } from 'react-native'
+import { ScrollView, TextInput, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -9,7 +9,7 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 import { AsyncStorage } from 'react-native'
 import AlertMessage from '../Components/AlertMessage'
 import moment from 'moment';
-import { Button, Icon, Text, Tile, Title, Subtitle, Row, Image, View, Caption, TouchableOpacity, } from '@shoutem/ui';
+import { Button, Icon, Text, Tile, Title, Subtitle, Row, Image, View, Caption, TouchableOpacity,ListView } from '@shoutem/ui';
 import _ from 'lodash';
 
 // Styles
@@ -21,11 +21,11 @@ class CountdownScreen extends React.Component {
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     // DataSource configured
-    const ds = new ListView.DataSource({ rowHasChanged })
+    //const ds = new ListView.DataSource({ rowHasChanged })
 
     // Datasource is always in state
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.events),
+      //dataSource: ds.cloneWithRows(this.props.events),
       events: this.props.events
     }
     console.log('loggin props.event');
@@ -73,7 +73,7 @@ class CountdownScreen extends React.Component {
   renderRowShoutEm(rowData) {
     var a = moment();
     return (
-      <TouchableOpacity onPress={() => this.onRowPress}>
+      <TouchableOpacity onPress={() => this._onRowPress()}>
         <Row >
           <View styleName="vertical">
             {/*          <Image
@@ -130,7 +130,7 @@ class CountdownScreen extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.events) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(newProps.events),
+        //dataSource: this.state.dataSource.cloneWithRows(newProps.events),
         events: newProps.events
       })
     }
@@ -140,18 +140,18 @@ class CountdownScreen extends React.Component {
     return (
       <ScrollView style={styles.container} >
         {/*<AlertMessage title='Nothing to See Here, Move Along' show={this._noRowData()} />*/}
-        <ListView
+        {/*<ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow.bind(this)}
           pageSize={15}
-          />
-        {/*<ListView
+          />*/}
+        <ListView
           autoHideHeader={true}
           data={this.state.events}
-          renderRow={this.renderRowShoutEm}
+          renderRow={this.renderRowShoutEm.bind(this)}
           // renderHeader={this.renderHeader}
-          />*/}
+          />
 
         <Button styleName="dark">
           <Icon name="add-event" />
