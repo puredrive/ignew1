@@ -35,18 +35,18 @@ class CountdownForm extends React.Component {
     console.log('in handlepresslogin');
     console.log(eventname);
     console.log(eventdate);
-    var newEventObj = {eventname, eventdate: moment(eventdate)};
+    var newEventObj = { eventname, eventdate: moment(eventdate) };
     console.log(newEventObj);
-//use action to send data to be updated into list and update asyncstorage
-  this.props.attemptAddEvent(eventname, eventdate);
-
+    //use action to send data to be updated into list and update asyncstorage
+    this.props.attemptAddEvent(eventname, eventdate);
+    NavigationActions.pop();
   }
 
   constructor(props) {
     super(props)
     this.state = {
       eventname: '',
-      events:[],
+      events: [],
       password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
@@ -157,7 +157,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     attemptAddEvent: (eventname, eventdate) => {
-     console.log('dispatching addEvent!');
+      console.log('dispatching addEvent!');
       dispatch(CountdownActions.addEvent(eventname, eventdate))
     }
   }

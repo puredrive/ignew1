@@ -63,6 +63,7 @@ class CountdownScreen extends React.Component {
   }
 
   _onRowPress = function() {
+    NavigationActions.login();
     console.log('Pressed!1');
     console.log('Pressed!');
     
@@ -100,12 +101,12 @@ class CountdownScreen extends React.Component {
 
 
 
-  onRowPress1() {
+  // onRowPress1() {
 
-    //Actions.employeeEdit({ employee: this.props.employee });
-    return console.log('Pressed!');
+  //   //Actions.employeeEdit({ employee: this.props.employee });
+  //   return console.log('Pressed!');
 
-  }
+  // }
 
   renderHeader() {
     return (
