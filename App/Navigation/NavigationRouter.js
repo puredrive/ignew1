@@ -21,6 +21,7 @@ import ThemeScreen from '../Containers/ThemeScreen'
 import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import CountdownScreen from '../Containers/CountdownScreen'
 import CountdownForm from '../Containers/CountdownForm'
+import CountdownCreate from '../Containers/CountdownCreate'
 import ShoutemExamplesScreen from '../Containers/ShoutemExamplesScreen'
 
 /* **************************
@@ -35,7 +36,7 @@ class NavigationRouter extends Component {
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='presentationScreen' component={PresentationScreen} title='Ignite' renderLeftButton={NavItems.hamburgerButton} />
             <Scene initial key='countdownScreen' component={CountdownScreen} title='Events' renderLeftButton={NavItems.hamburgerButton} renderRightButton={NavItems.plusButton}/>   
-            <Scene key='countdownForm' component={CountdownForm} title='New Event'/>    
+            <Scene key='countdownCreate' component={CountdownCreate} title='New Event'/>    
             <Scene key='ShoutemExamples' component={ShoutemExamplesScreen} title='Shoutem' hideNavBar />      
             <Scene key='componentExamples' component={AllComponentsScreen} title='Components' />
             <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} />
