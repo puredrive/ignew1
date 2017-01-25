@@ -63,7 +63,7 @@ class CountdownScreen extends React.Component {
   }
 
   _onRowPress = function() {
-    NavigationActions.countdownCreate;
+    NavigationActions.countdownCreate();
     console.log('Pressed!1');
     console.log('Pressed!');
     

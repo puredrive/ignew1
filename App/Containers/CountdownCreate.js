@@ -106,7 +106,7 @@ class CountdownCreate extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('== IMPORTANT ==');
+  console.log('== IMPORTANT in countdowncreate ==');
   console.log(state.countdown);
   return {
     events: state.countdown.events
@@ -122,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CountdownForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CountdownCreate)

@@ -41,7 +41,7 @@ export default {
 
   plusButton () {
     return (
-      <TouchableOpacity onPress={NavigationActions.countdownForm}>
+      <TouchableOpacity onPress={NavigationActions.countdownCreate}>
         <Icon name='plus-circle'
           size={Metrics.icons.small}
           color={Colors.snow}
