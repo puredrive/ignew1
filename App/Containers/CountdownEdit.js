@@ -23,6 +23,10 @@ import I18n from 'react-native-i18n'
 
 class CountdownEdit extends React.Component {
 
+  componentWillMount(){
+    //to-do use reducer to update screen to reflect passed in values
+  }
+
   handleChangeEventname = (text) => {
     this.setState({ eventname: text })
   }
@@ -46,6 +50,7 @@ class CountdownEdit extends React.Component {
   constructor(props) {
     super(props)
     console.log("In CountdownEdit!");
+    console.log(props);
     this.state = {
       eventname: '',
       events: [],

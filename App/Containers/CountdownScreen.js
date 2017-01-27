@@ -44,37 +44,23 @@ class CountdownScreen extends React.Component {
 
 
 
-  _renderRow(rowData) {
-    var a = moment();
-
-    return (
-
-
-        <TouchableHighlight onPress={() => {this._onRowPress();console.log('yo');}}>
-              <View style={styles.row}>
-          <Text style={styles.boldLabel}>{rowData.eventname}</Text>
-          <Text style={styles.label}>{rowData.eventdate}</Text>
-          <Text style={styles.label}>{a.to(rowData.eventdate)}</Text>
-                </View>
-        </TouchableHighlight >
-
-
-    )
-  }
-
-  _onRowPress = function() {
-    NavigationActions.countdownCreate();
+//working
+  _onRowPress = function(rowData, rowID) {
+    
+    NavigationActions.countdownEdit({selectedRow: rowID, selectedEvent : rowData});
     console.log('Pressed!1');
+    console.log(rowData);
+    console.log(rowID);
     console.log('Pressed!');
     
   }
 
   //      <TouchableOpacity onPress={()=>{this.onRowPress();console.log('yoyo');}}>
 
-  renderRowShoutEm(rowData) {
+  renderRowShoutEm(rowData, sectionId, rowID) {
     var a = moment();
     return (
-      <TouchableOpacity onPress={() => this._onRowPress()}>
+      <TouchableOpacity onPress={() => this._onRowPress(rowData, rowID)}>
         <Row >
           <View styleName="vertical">
             {/*          <Image

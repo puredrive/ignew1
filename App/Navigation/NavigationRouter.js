@@ -22,6 +22,7 @@ import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import CountdownScreen from '../Containers/CountdownScreen'
 import CountdownForm from '../Containers/CountdownForm'
 import CountdownCreate from '../Containers/CountdownCreate'
+import CountdownEdit from '../Containers/CountdownEdit'
 import ShoutemExamplesScreen from '../Containers/ShoutemExamplesScreen'
 
 /* **************************
