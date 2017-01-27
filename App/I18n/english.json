@@ -23,5 +23,6 @@
    "deviceDetails": "Device Details",
    "noItems": "No Items",
    "eventname": "Event Name",
-   "eventdate": "Event Date"
+   "eventdate": "Event Date",
+   "update": "Update"
 }

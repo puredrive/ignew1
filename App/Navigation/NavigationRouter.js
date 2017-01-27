@@ -38,7 +38,7 @@ class NavigationRouter extends Component {
             <Scene initial key='countdownScreen' component={CountdownScreen} title='Events' renderLeftButton={NavItems.hamburgerButton} renderRightButton={NavItems.plusButton}/>   
             <Scene key='ShoutemExamples' component={ShoutemExamplesScreen} title='Shoutem' hideNavBar />  
             <Scene key='countdownCreate' component={CountdownCreate} title='New Event'/>    
-    
+            <Scene key='countdownEdit' component={CountdownEdit} title='Update Event'/>    
             <Scene key='componentExamples' component={AllComponentsScreen} title='Components' />
             <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} />
             <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
