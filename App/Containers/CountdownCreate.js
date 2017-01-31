@@ -107,7 +107,7 @@ class CountdownCreate extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log('== IMPORTANT in countdowncreate ==');
-  console.log(state.countdown);
+  console.log(state);
   return {
     events: state.countdown.events
   }

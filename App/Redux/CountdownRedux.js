@@ -6,7 +6,9 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  addEvent: ['eventname', 'eventdate']
+  addEvent: ['eventname', 'eventdate'],
+  editEvent: ['eventname', 'eventdate'],
+  resetEvents: null
 })
 
 export const LoginTypes = Types
@@ -20,7 +22,7 @@ export const INITIAL_STATE = {
 
 /* ------------- Reducers ------------- */
 
-
+//add current stated event to 'events' object
 export const addEvent = (state = INITIAL_STATE, event) => {
   console.log('inside AddEvent reducer');
   console.log(state);
@@ -32,6 +34,17 @@ export const addEvent = (state = INITIAL_STATE, event) => {
   return {...state, events: [...state.events, toAdd] }
 }
 
+export const editEvent = (state = INITIAL_STATE, event) => {
+  console.log('inside editEvent reducer');
+  console.log(state);
+  console.log('inside editEvent reducer, logging event');
+  console.log(event);
+  const {eventname, eventdate} = event;
+  return {...state, eventname: eventname, eventdate:eventdate }
+  //return {...state,event: {eventname,eventdate}}
+}
+
+
 
 // we've successfully logged in
 export const success = (state: Object, { username }: Object) =>
@@ -42,12 +55,14 @@ export const failure = (state: Object, { error }: Object) =>
   state.merge({ fetching: false, error })
 
 // we've logged out
-export const logout = (state: Object) => INITIAL_STATE
+export const resetEvents = (state: Object) => INITIAL_STATE
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.ADD_EVENT]: addEvent
+  [Types.ADD_EVENT]: addEvent,
+  [Types.EDIT_EVENT]: editEvent,
+  [Types.RESET_EVENTS]: resetEvents
 })
 
 /* ------------- Selectors ------------- */

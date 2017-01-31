@@ -48,10 +48,10 @@ class CountdownScreen extends React.Component {
   _onRowPress = function(rowData, rowID) {
     
     NavigationActions.countdownEdit({selectedRow: rowID, selectedEvent : rowData});
-    console.log('Pressed!1');
-    console.log(rowData);
-    console.log(rowID);
-    console.log('Pressed!');
+    console.log('Pressed row =' + rowID);
+    // console.log(rowData);
+    // console.log(rowID);
+    // console.log('Pressed!');
     
   }
 

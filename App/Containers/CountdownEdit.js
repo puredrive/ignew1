@@ -23,28 +23,35 @@ import I18n from 'react-native-i18n'
 
 class CountdownEdit extends React.Component {
 
-  componentWillMount(){
+  componentWillMount() {
     //to-do use reducer to update screen to reflect passed in values
+
+    console.log("In CountdownEdit componentWillMount", this.props.selectedEvent.eventname, this.props.selectedEvent.eventdate);
+    this.props.attemptEditEvent(this.props.selectedEvent.eventname, this.props.selectedEvent.eventdate);
   }
 
-  handleChangeEventname = (text) => {
-    this.setState({ eventname: text })
-  }
+  // handleChangeEventname = (text) => {
+  //   this.setState({ eventname: text })
+  // }
 
-  handleChangePassword = (text) => {
-    this.setState({ password: text })
-  }
+  // handleChangePassword = (text) => {
+  //   this.setState({ password: text })
+  // }
 
   handlePressLogin = () => {
-    const {eventname, eventdate} = this.state;
-    console.log('in handlepresslogin');
+    const {eventname, eventdate} = this.props.selectedEvent;
+    console.log('Trying to save Edited Event');
     console.log(eventname);
     console.log(eventdate);
     var newEventObj = { eventname, eventdate: moment(eventdate) };
     console.log(newEventObj);
     //use action to send data to be updated into list and update asyncstorage
-    this.props.attemptAddEvent(eventname, eventdate);
+    this.props.attemptSaveUpdatedEvent(eventname, eventdate);
     NavigationActions.pop();
+  }
+
+  resetEvents = () => {
+    this.props.resetEvents();
   }
 
   constructor(props) {
@@ -62,7 +69,10 @@ class CountdownEdit extends React.Component {
   }
 
   render() {
-    const { eventname, password } = this.state
+    const {eventname, eventdate} = this.props.selectedEvent;
+    console.log('At CountdownEdit - render()');
+    console.log(eventname);
+    console.log(eventdate);
     const { fetching } = this.props;
     const editable = !fetching;
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly;
@@ -70,21 +80,21 @@ class CountdownEdit extends React.Component {
       <ScrollView style={Styles.container}>
         <KeyboardAvoidingView behavior='position'>
           <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
-          <CountdownForm/>
+          <CountdownForm eventname={eventname} eventdate={eventdate} />
 
-              <View style={[Styles.loginRow]}>
-              <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
-                <View style={Styles.loginButton}>
-                  <Text style={Styles.loginText}>{I18n.t('update')}</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
-                <View style={Styles.loginButton}>
-                  <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          
+          <View style={[Styles.loginRow]}>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
+              <View style={Styles.loginButton}>
+                <Text style={Styles.loginText}>{I18n.t('update')}</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.resetEvents}>
+              <View style={Styles.loginButton}>
+                <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -93,7 +103,7 @@ class CountdownEdit extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('== IMPORTANT in countdowncreate ==');
+  console.log('== In CountdownEdit mapStateToProps ==');
   console.log(state.countdown);
   return {
     events: state.countdown.events
@@ -102,10 +112,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptAddEvent: (eventname, eventdate) => {
-      console.log('dispatching addEvent!');
-      dispatch(CountdownActions.addEvent(eventname, eventdate))
+    attemptEditEvent: (eventname, eventdate) => {
+      console.log('dispatching editEvent!');
+      dispatch(CountdownActions.editEvent(eventname, eventdate))
+    },
+    resetEvents: () => {
+      console.log('dispatching resetEvents!');
+      dispatch(CountdownActions.resetEvents())
     }
+    
   }
 }
 

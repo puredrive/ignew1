@@ -23,27 +23,37 @@ import I18n from 'react-native-i18n'
 class CountdownForm extends React.Component {
 
   handleChangeEventname = (text) => {
-    this.setState({ eventname: text })
+    //this.setState({ eventname: text })
+    this.props.attemptEditEvent(text, this.props.eventdate);
   }
 
-  handleChangePassword = (text) => {
-    this.setState({ password: text })
-  }
+  // handleChangePassword = (text) => {
+  //   this.setState({ password: text })
+  // }
 
   constructor(props) {
     super(props)
-    this.state = {
-      eventname: '',
-      events: [],
-      password: '',
-      visibleHeight: Metrics.screenHeight,
-      topLogo: { width: Metrics.screenWidth }
-    }
+    console.log('At countdownForm constructor - props');
+    console.log(props);
+    console.log('At countdownForm constructor - state');
+    console.log(this.state);
+
+    // this.state = {
+    //   events: [],
+    //   visibleHeight: Metrics.screenHeight,
+    //   topLogo: { width: Metrics.screenWidth }
+    // }
+
     this.isAttempting = false
   }
 
   render() {
-    const { eventname, password } = this.state
+    const { eventname, eventdate } = this.props;
+    console.log("CountdownForm Render() = ");
+    console.log('State');
+    console.log(this.state);
+    console.log('Props');
+    console.log(this.props);
     const { fetching } = this.props;
     const editable = !fetching;
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly;
@@ -69,7 +79,7 @@ class CountdownForm extends React.Component {
           <Text style={Styles.rowLabel}>{I18n.t('eventdate')}</Text>
           <DatePicker
             style={{ width: 200 }}
-            date={this.state.eventdate}
+            date={eventdate}
             mode="date"
             placeholder={I18n.t('eventdate')}
             format="YYYY-MM-DD"
@@ -89,7 +99,7 @@ class CountdownForm extends React.Component {
               }
               // ... You can check the source to find the other keys.
             }}
-            onDateChange={(eventdate) => { this.setState({ eventdate }) } }
+            onDateChange={(changedeventdate) => { this.props.attemptEditEvent(this.props.eventname, changedeventdate) } }
             />
         </View>
       </View>
@@ -99,19 +109,19 @@ class CountdownForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('== IMPORTANT ==');
+  console.log('== in CountdownForm mapStateToProps ==');
   console.log(state);
-  console.log('== IMPORTANT END ==');
   return {
-    events: state.countdown.events
+    eventname: state.countdown.eventname,
+    eventdate: state.countdown.eventdate
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptAddEvent: (eventname, eventdate) => {
-      console.log('dispatching addEvent!');
-      dispatch(CountdownActions.addEvent(eventname, eventdate))
+    attemptEditEvent: (eventname, eventdate) => {
+      console.log('dispatching editEvent in CountdownForm!');
+      dispatch(CountdownActions.editEvent(eventname, eventdate))
     }
   }
 }
