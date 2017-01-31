@@ -39,14 +39,17 @@ class CountdownEdit extends React.Component {
   // }
 
   handlePressLogin = () => {
-    const {eventname, eventdate} = this.props.selectedEvent;
+    const {eventname, eventdate, selectedRow} = this.props;
+
     console.log('Trying to save Edited Event');
+    console.log(this.props);
+    console.log(selectedRow);
     console.log(eventname);
     console.log(eventdate);
-    var newEventObj = { eventname, eventdate: moment(eventdate) };
-    console.log(newEventObj);
+    // var newEventObj = { eventname, eventdate: moment(eventdate) };
+    // console.log(newEventObj);
     //use action to send data to be updated into list and update asyncstorage
-    this.props.attemptSaveUpdatedEvent(eventname, eventdate);
+    this.props.attemptSaveUpdatedEvent(selectedRow, eventname, eventdate);
     NavigationActions.pop();
   }
 
@@ -104,9 +107,11 @@ class CountdownEdit extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log('== In CountdownEdit mapStateToProps ==');
-  console.log(state.countdown);
+  console.log(state);
   return {
-    events: state.countdown.events
+    events: state.countdown.events,
+    eventname: state.countdown.eventname,
+    eventdate: state.countdown.eventdate
   }
 }
 
@@ -119,8 +124,12 @@ const mapDispatchToProps = (dispatch) => {
     resetEvents: () => {
       console.log('dispatching resetEvents!');
       dispatch(CountdownActions.resetEvents())
+    },
+    attemptSaveUpdatedEvent: (id, eventname, eventdate) => {
+      console.log('dispatching attemptSaveUpdatedEvent!');
+      dispatch(CountdownActions.attemptSaveUpdatedEvent(id, eventname, eventdate));
     }
-    
+
   }
 }
 

@@ -8,6 +8,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   addEvent: ['eventname', 'eventdate'],
   editEvent: ['eventname', 'eventdate'],
+  attemptSaveUpdatedEvent: ['id','eventname', 'eventdate'],
   resetEvents: null
 })
 
@@ -45,6 +46,17 @@ export const editEvent = (state = INITIAL_STATE, event) => {
 }
 
 
+export const attemptSaveUpdatedEvent = (state = INITIAL_STATE, event) => {
+  console.log('inside attemptSaveUpdatedEvent reducer');
+  console.log(state);
+  console.log('inside attemptSaveUpdatedEvent reducer, logging event');
+  console.log(event);
+  const {eventname, eventdate, id} = event;
+  state.events[id] = {eventname, eventdate};
+  return {...state, events: [...state.events]}
+    
+  //return {...state,event: {eventname,eventdate}}
+}
 
 // we've successfully logged in
 export const success = (state: Object, { username }: Object) =>
@@ -62,7 +74,8 @@ export const resetEvents = (state: Object) => INITIAL_STATE
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ADD_EVENT]: addEvent,
   [Types.EDIT_EVENT]: editEvent,
-  [Types.RESET_EVENTS]: resetEvents
+  [Types.RESET_EVENTS]: resetEvents,
+  [Types.ATTEMPT_SAVE_UPDATED_EVENT]: attemptSaveUpdatedEvent
 })
 
 /* ------------- Selectors ------------- */
